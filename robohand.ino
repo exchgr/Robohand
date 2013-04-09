@@ -22,7 +22,11 @@ void loop() {
     position = map(flexValue, 450, 830, 0, 179);
     finger.write(position);
 
-    Serial.println(flexValue);
+    Serial.print(flexValue);
+    Serial.print("\t");
+    Serial.print(position);
+    Serial.print("\t");
+    Serial.println(finger.read());
 
     //200
     //560
