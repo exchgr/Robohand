@@ -1,4 +1,5 @@
 // Sensor locations
+#define FLEX_PIN A0
 
 // Sensor values
 int flexValue;
@@ -8,6 +9,6 @@ void setup() {
 }
 
 void loop() {
-    flexValue = analogRead(A0);
+    flexValue = analogRead(FLEX_PIN);
     Serial.println(flexValue);
 }
