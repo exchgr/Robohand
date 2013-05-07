@@ -2,32 +2,35 @@
 #include <Servo.h>
 
 // Sensor locations
-#define FLEX_PIN A0
-#define SERVO_PIN 9
+
+// The lowest consecutive pins of 3
+int flex_pins[] = {A0, A1, A2};
+#define SERVO_START 9 
 
 // Sensor values
-int flexValue;
+int flexValue[3];
 
 // Program objects
-Servo finger;
+Servo hand[3];
 int position;
 
 void setup() {
     Serial.begin(9600);
-    finger.attach(SERVO_PIN);
+    
+    for (int i = 0; i < 3; i++) {
+        hand[i].attach(SERVO_START + i);
+    }
 }
 
 void loop() {
-    flexValue = analogRead(FLEX_PIN);
-    position = map(flexValue, 450, 830, 0, 179);
-    finger.write(position);
+    for (int i = 0; i < 3; i++) {
+        flexValue[i] = analogRead(flex_pins[i]);
+        hand[i].write(map(flexValue[i], 450, 830, 0, 179));
 
-    Serial.print(flexValue);
-    Serial.print("\t");
-    Serial.print(position);
-    Serial.print("\t");
-    Serial.println(finger.read());
-
-    //200
-    //560
+        Serial.print(i);
+        Serial.print(":");
+        Serial.print(flexValue[i]);
+        Serial.print("\t");
+    }
+    Serial.println();
 }
